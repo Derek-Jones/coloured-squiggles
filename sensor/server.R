@@ -1,6 +1,6 @@
 # server.R
 #
-# AEC hackathon,  9 Jul 16
+# AEC hackathon, 10 Jul 16
 
 library("colorspace")
 library(lubridate)
@@ -13,6 +13,11 @@ mk_plot=function(start_date, end_date)
 {
 start_date=as.POSIXct(start_date, format="%Y-%m-%d")
 end_date=as.POSIXct(end_date, format="%Y-%m-%d")
+# For today's data we only want to display up until now, not the end of the day
+# "2016-07-10 11:44:02 BST"
+now_date=as.POSIXct(Sys.time(), format="%Y-%m-%d %H:%M:%S")
+
+end_date=ifelse(end_date < now_date, end_date, now_date)
 
 # print(c(as.numeric(start_date), as.numeric(end_date)))
 # print(as.numeric(end_date)-as.numeric(start_date))
